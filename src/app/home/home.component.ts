@@ -35,7 +35,7 @@ const MODALS: { [name: string]: Type<any> } = {
 })
 export class HomeComponent implements OnInit {
   closeResult = '';
-  employeeList: any = [];
+  studentList: any = [];
 student: any;
   constructor(private router: Router, private modalService: NgbModal,
     private toastr: ToastrService, private httpProvider : HttpProviderService) { }
@@ -48,7 +48,7 @@ student: any;
       if (data != null && data.body != null) {
         var resultData = data.body;
         if (resultData) {
-          this.employeeList = resultData;
+          this.studentList = resultData;
         }
       }
     },
@@ -56,7 +56,7 @@ student: any;
         if (error) {
           if (error.status == 404) {
             if(error.error && error.error.message){
-              this.employeeList = [];
+              this.studentList = [];
             }
           }
         }
@@ -67,12 +67,12 @@ student: any;
     this.router.navigate(['AddStudent']);
   }
 
-  deleteStudentConfirmation(employee: any) {
+  deleteStudentConfirmation(student: any) {
     this.modalService.open(MODALS['deleteModal'],
       {
         ariaLabelledBy: 'modal-basic-title'
       }).result.then((result) => {
-        this.deleteStudent(employee);
+        this.deleteStudent(student);
       },
         (reason) => {});
   }
